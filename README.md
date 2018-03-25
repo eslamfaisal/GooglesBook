@@ -12,4 +12,9 @@ and you will receive Any book followed this word
 
 - Internet Connection and HTTP request
 
+- Using JSON to feach data from intenet
+
 - Using AsyncTaskLoader for Background Thread
+
+
+
