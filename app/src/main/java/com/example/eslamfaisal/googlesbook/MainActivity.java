@@ -47,6 +47,9 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
     }
 
     public void Search(View view) {
+
+        adapter.clear();
+
         editTextSearch = findViewById(R.id.edit_text_search);
         value = editTextSearch.getText().toString().trim();
         if (value.length() < 1 || value == null) {
