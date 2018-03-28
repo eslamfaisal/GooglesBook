@@ -6,6 +6,8 @@ An app for searching for any book in google
 
 - Using ListeView 
 
+- Using SearchView 
+
 - Using CustomAdapter
 
 - Internet Connection and HTTP request
