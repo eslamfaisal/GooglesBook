@@ -142,6 +142,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
                 searchView.setQuery("", false);
                 searchView.setIconified(true);
                 searchItem.collapseActionView();
+                MainActivity.this.setTitle(query);
                 return true;
             }
 
