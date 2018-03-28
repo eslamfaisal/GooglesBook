@@ -7,10 +7,13 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
-import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.SearchView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -26,7 +29,6 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
     private String URL_RESPONSE;
     private TextView mEmptyStateTextView;
     private BooksAdapter adapter;
-    private EditText editTextSearch;
     private String value;
     private List<Books> books_list;
     private View progressBar;
@@ -42,16 +44,14 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         listView.setAdapter(adapter);
         mEmptyStateTextView = (TextView) findViewById(R.id.emptyElement);
         listView.setEmptyView(mEmptyStateTextView);
+        mEmptyStateTextView.setText(R.string.enter_name);
         progressBar = findViewById(R.id.loading_indicator);
         progressBar.setVisibility(View.GONE);
     }
 
-    public void Search(View view) {
+    public void Search(String value) {
 
         adapter.clear();
-
-        editTextSearch = findViewById(R.id.edit_text_search);
-        value = editTextSearch.getText().toString().trim();
         if (value.length() < 1 || value == null) {
             Toast.makeText(getApplicationContext(), "Enter a valid book name..", Toast.LENGTH_SHORT).show();
         } else {
@@ -125,5 +125,31 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         } else {
             mEmptyStateTextView.setText(R.string.no_book);
         }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater menuInflater  = getMenuInflater();
+        menuInflater.inflate(R.menu.menu,menu);
+        final MenuItem searchItem = menu.findItem(R.id.action_search);
+        final SearchView searchView = (SearchView) searchItem.getActionView();
+
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                Search(query);
+                searchView.clearFocus();
+                searchView.setQuery("", false);
+                searchView.setIconified(true);
+                searchItem.collapseActionView();
+                return true;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String s) {
+                return false;
+            }
+        });
+        return true;
     }
 }
