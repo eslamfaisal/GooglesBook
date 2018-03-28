@@ -52,12 +52,8 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
     public void Search(String value) {
 
         adapter.clear();
-        if (value.length() < 1 || value == null) {
-            Toast.makeText(getApplicationContext(), "Enter a valid book name..", Toast.LENGTH_SHORT).show();
-        } else {
-            if (!running) {
-                adapter.clear();
-            }
+        mEmptyStateTextView.setText("");
+
             try {
                 URL_RESPONSE = "https://www.googleapis.com/books/v1/volumes?q=" + java.net.URLEncoder.encode(value, "UTF-8") + "&maxResults=10";
                 ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
@@ -80,7 +76,6 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
             } catch (UnsupportedEncodingException e) {
                 e.printStackTrace();
             }
-        }
     }
 
     @Override
@@ -137,14 +132,15 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
-                Search(query);
-                searchView.clearFocus();
-                searchView.setQuery("", false);
-                searchView.setIconified(true);
-                searchItem.collapseActionView();
-                MainActivity.this.setTitle(query);
-                return true;
-            }
+                    Search(query);
+                    searchView.clearFocus();
+                    searchView.setQuery("", false);
+                    searchView.setIconified(true);
+                    searchItem.collapseActionView();
+                    MainActivity.this.setTitle(query);
+
+                    return true;
+                }
 
             @Override
             public boolean onQueryTextChange(String s) {
