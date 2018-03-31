@@ -12,7 +12,7 @@ An app for searching for any book in google
 
 - Internet Connection and HTTP request
 
-- Using JSON to feach data from intenet
+- Using JSON to feach data from internet
 
 - Using AsyncTaskLoader for Background Thread
 
